@@ -2,12 +2,12 @@ window.addEventListener('load', function () {
 
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
-    canvas.width = 400
-    canvas.height = 300
+    canvas.width = 700
+    canvas.height = 500
     let rivales = []
     let gameSpeed = 6
     let score = 0;
-    let scoreToWin = 30
+    let scoreToWin = 50
     let gameStarted = false;
     let gameOver = false;
     let gameEnded = false;

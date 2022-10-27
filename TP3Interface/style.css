@@ -5,8 +5,8 @@ body {
 
 .canva {
     background-image: url('start.png');
-    background-size: contain;
- 
+    background-size: cover;
+    background-repeat: no-repeat;
     position: absolute;
     top: 35%;
     left: 30%;
