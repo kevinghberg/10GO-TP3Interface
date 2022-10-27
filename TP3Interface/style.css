@@ -1,0 +1,31 @@
+body {
+    background-image: url('https://cloudfront-us-east-1.images.arcpublishing.com/infobae/D2QR72F5EFDXRHSJTTG2PLLMEU.jpg');
+    background-size: cover;
+}
+
+.canva {
+    background-image: url('start.png');
+    background-size: contain;
+ 
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    border: 3px solid black;
+}
+
+#jugador {
+    display: none;
+}
+
+#background {
+    display: none;
+}
+
+#rival {
+    display: none;
+}
+
+.audio{
+    visibility: hidden;
+}
