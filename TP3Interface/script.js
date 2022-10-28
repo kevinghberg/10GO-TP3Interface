@@ -13,6 +13,7 @@ window.addEventListener('load', function () {
     let gameEnded = false;
 
     let audio = document.getElementById('cancion');
+    audio.volume=0.3
     
     let audio2 = document.getElementById('cancion2')
     audio2.pause()
