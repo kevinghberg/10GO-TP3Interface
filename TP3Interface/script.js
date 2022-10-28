@@ -13,7 +13,7 @@ window.addEventListener('load', function () {
     let gameEnded = false;
 
     let audio = document.getElementById('cancion');
-    audio.volume=0.3
+    audio.volume= 0.2
     
     let audio2 = document.getElementById('cancion2')
     audio2.pause()
@@ -28,7 +28,7 @@ window.addEventListener('load', function () {
  
 
     document.querySelector("#botonRestart").addEventListener('click', function () {
-       
+        window.location.reload();
     });
 
 
