@@ -14,7 +14,6 @@ window.addEventListener('load', function () {
 
     let audio = document.getElementById('cancion');
     
-
     let audio2 = document.getElementById('cancion2')
     audio2.pause()
     setTimeout(function () {
@@ -28,7 +27,7 @@ window.addEventListener('load', function () {
  
 
     document.querySelector("#botonRestart").addEventListener('click', function () {
-        window.location.reload();
+       
     });
 
 
