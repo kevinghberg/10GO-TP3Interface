@@ -14,7 +14,10 @@ window.addEventListener('load', function () {
 
     let audio = document.getElementById('cancion');
     audio.volume = 0.2
-    audio.play()
+    
+    setTimeout(function () {
+        audio.play()
+    }, 10)
 
     let audio2 = document.getElementById('cancion2')
     audio2.pause()
