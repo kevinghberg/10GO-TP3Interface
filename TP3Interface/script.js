@@ -14,6 +14,7 @@ window.addEventListener('load', function () {
 
     let audio = document.getElementById('cancion');
     audio.volume = 0.2
+    audio.play()
 
     let audio2 = document.getElementById('cancion2')
     audio2.pause()
@@ -25,7 +26,7 @@ window.addEventListener('load', function () {
 
     let audio4 = document.getElementById('cancion4')
     audio4.volume = 0.4
-
+ 
 
     document.querySelector("#botonRestart").addEventListener('click', function () {
         window.location.reload();
@@ -139,10 +140,6 @@ window.addEventListener('load', function () {
         estaEnSuelo() {
             return this.y >= this.jHeight - this.height;
         }
-    }
-
-    class Ui {
-
     }
 
     class Rival {
