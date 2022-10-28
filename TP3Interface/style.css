@@ -29,3 +29,10 @@ body {
 .audio{
     visibility: hidden;
 }
+
+#botonRestart{
+    position: absolute;
+    top: 65%;
+    left: 27%;
+    
+}

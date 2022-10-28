@@ -1,9 +1,10 @@
 window.addEventListener('load', function () {
-
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
     canvas.width = 700
     canvas.height = 500
+
+    // VARIABLES
     let rivales = []
     let gameSpeed = 6
     let score = 0;
@@ -11,35 +12,31 @@ window.addEventListener('load', function () {
     let gameStarted = false;
     let gameOver = false;
     let gameEnded = false;
-
+    let lastTime = 0;
+    let enemyTimer = 0;
+    let enemyInterval = 800;
+    let randomEnemyInterval = Math.random() * 1000
     let audio = document.getElementById('cancion');
-    audio.volume= 0.2
-    
+    audio.volume = 0.1
     let audio2 = document.getElementById('cancion2')
     audio2.pause()
     setTimeout(function () {
         audio2.play()
     }, 7000)
-
     let audio3 = this.document.getElementById('cancion3')
-
     let audio4 = document.getElementById('cancion4')
     audio4.volume = 0.4
- 
 
     document.querySelector("#botonRestart").addEventListener('click', function () {
         window.location.reload();
     });
 
-
     const backgroundLayer = new Image();
     backgroundLayer.src = 'layer.png'
-
     const backgroundLayer2 = new Image();
     backgroundLayer2.src = 'layer2.png'
 
-
-
+    // CLASE CONTROLES
     class Entrada {
         constructor() {
             this.keys = []
@@ -64,11 +61,10 @@ window.addEventListener('load', function () {
                     this.keyStart.splice(this.keyStart.indexOf(e.key), 1)
                 }
             })
-
         }
-
     }
 
+    //CLASE PARA JUGADOR PRINCIPAL
     class Jugador {
         constructor(jWidth, jHeight) {
             this.jHeight = jHeight
@@ -96,42 +92,33 @@ window.addEventListener('load', function () {
                 const distancia = Math.sqrt(dx * dx + dy * dy)
 
                 if (distancia < rival.width / 2 + this.width / 2) {
-                    this.frameY = 7.7
-                    this.frameX = 2.64310
+                    this.frameY = 7.7 // spray
+                    this.frameX = 2.64310 //spray
                     this.x = 0
                     this.y = this.jHeight - this.height
-
                     gameOver = true
 
                 } else if (distancia - 50 < rival.width / 2 + this.width / 2) {
-
                     rival.frameY = 7.8
                     rival.frameX = 4.5
-
                 }
-
             }
-
             );
-            //controles
-
+            //controles jugador
             if (entrada.keys.indexOf('ArrowUp') > -1 && this.estaEnSuelo()) {
-                this.vy -= 10
+                this.vy -= 10 // que tan alto salta el jugador 
                 this.frameX = 0.1
             } else {
                 this.speed = 0
             }
-
             //saltar en y
             this.y += this.vy
-
             if (!this.estaEnSuelo()) {
                 this.vy += this.gravedad;
             } else {
                 this.vy = 0
                 this.frameX = 2.64310
             }
-
             if (this.y > this.jHeight - this.height)
                 this.y = this.jHeight - this.height;
         }
@@ -140,7 +127,7 @@ window.addEventListener('load', function () {
             return this.y >= this.jHeight - this.height;
         }
     }
-
+    //CLASE RIVAL
     class Rival {
         constructor(jWidth, jHeight) {
             this.jWidth = jWidth
@@ -159,6 +146,7 @@ window.addEventListener('load', function () {
                 this.x, this.y, this.width, this.height)
         }
         actualizar(deltaTime) {
+            // movimiento del rival 
             this.x--
             this.x--
             this.x--
@@ -170,6 +158,7 @@ window.addEventListener('load', function () {
         }
     }
 
+    //LAYERS PARA EFECTO PARALLAX
     class Layer {
         constructor(imagen, velocidadN) {
             this.x = 0
@@ -181,7 +170,6 @@ window.addEventListener('load', function () {
             this.velocidadN = velocidadN
             this.velocidad = gameSpeed * velocidadN
         }
-
         actualizar() {
             this.speed = gameSpeed * this.velocidadN
             if (this.x <= - this.width) {
@@ -190,7 +178,6 @@ window.addEventListener('load', function () {
             if (this.x2 <= - this.width) {
                 this.x2 = this.width + this.x - this.speed
             }
-
             this.x = Math.floor(this.x - this.speed)
             this.x2 = Math.floor(this.x2 - this.speed)
         }
@@ -200,8 +187,7 @@ window.addEventListener('load', function () {
         }
     }
 
-
-
+    // INVOCA instancias DE RIVAL
     function rivals(deltaTime) {
         if (enemyTimer > enemyInterval + randomEnemyInterval) {
             randomEnemyInterval = Math.random() * 1000
@@ -218,11 +204,10 @@ window.addEventListener('load', function () {
             !rival.rivalABorrar)
     }
 
-
+    // BRINDA INFO SOBRE ESTADO DE JUEGO// SCORE// WIN// GAMEOVER//
     function estadoJuego(context) {
-
         context.fillStyle = 'black'
-        context.font = '15px Verdana'
+        context.font = '30px Verdana'
         context.fillText('Ingleses Gambeteados: ' + score + '/' + scoreToWin, 20, 50)
         if (gameOver) {
             audio3.play();
@@ -250,27 +235,19 @@ window.addEventListener('load', function () {
             context.fillText('BARRILETE COSMICO!', canvas.width / 2, 200)
         }
     }
-
-
-
-
+    // INSTANCIAS DE OBJETOS
     const entrada = new Entrada();
     const jugador = new Jugador(canvas.width, canvas.height)
     const layer1 = new Layer(backgroundLayer, 0.1)
     const layer2 = new Layer(backgroundLayer2, 0.5)
     const layers = [layer1, layer2]
 
-    let lastTime = 0;
-    let enemyTimer = 0;
-    let enemyInterval = 800;
-    let randomEnemyInterval = Math.random() * 1000
 
+    // GAMEON
     function animar(timeStamp) {
-
         if (entrada.keyStart.indexOf(' ') > -1) {
             gameStarted = true
         }
-
         if (gameStarted && !gameOver && !gameEnded) {
             const deltaTime = timeStamp - lastTime;
             lastTime = timeStamp
@@ -291,8 +268,6 @@ window.addEventListener('load', function () {
             gameEnded = true;
             requestAnimationFrame(animar)
         }
-
-
     }
     animar(0)
 })
